@@ -1,0 +1,48 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Pierres.Models;
+
+<h1>Welcome to Pierres Sweet Treats!</h1>
+
+<hr>
+
+<h4>Treats</h4>
+@if (User.Identity.IsAuthenticated)
+{
+@if (Model["treats"].Length == 0)
+{
+  <p>No treats have been added yet!</p>
+} 
+<ul>
+  @foreach (Treat treat in Model["treats"])
+  {
+    <li>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId})</li>
+  }
+</ul>
+
+
+  <h4>Flavors for @User.Identity.Name</h4>
+  @if (Model["flavors"].Length == 0)
+  {
+    <p>No flavors have been added yet!</p>
+  } 
+  <ul>
+    @foreach (Flavor flavor in Model["flavors"])
+    {
+      <li>@Html.ActionLink(@flavor.Description, "Details", "Flavors", new { id = @flavor.FlavorId})</li>
+    }
+  </ul>
+}
+else
+{
+  <h4>Pieres Sweet Treats</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your treats and flavors</p>
+}
+
+<hr>
+
+<p>@Html.ActionLink("Manage Treats", "Index", "Treats")</p> 
+<p>@Html.ActionLink("Manage Flavors", "Index", "Flavors")</p>
+<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
