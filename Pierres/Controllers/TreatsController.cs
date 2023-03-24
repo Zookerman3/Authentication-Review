@@ -22,7 +22,7 @@ namespace Pierres.Controllers
             _userManager = userManager;
             _db = db;
         }
-
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -56,7 +56,7 @@ namespace Pierres.Controllers
                 return RedirectToAction("Index");
             }
         }
-
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             Treat thisTreat = _db.Treats
